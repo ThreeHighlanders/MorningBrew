@@ -25,40 +25,56 @@
 
 **Required Must-have Stories**
 
-* [fill in your required user stories here]
-* ...
+* User can register a new account
+* User can login
+* User can set location for weather
+* User can set time for daily notification
+* User can see previous notifications
+* User receives daily notification 
 
 **Optional Nice-to-have Stories**
 
-* [fill in your required user stories here]
-* ...
+* User can adjust when they recieve notifications(Ex. Mon-Fri)
+* User can set profile picture
+* User can set location to auto
+* Add more content into notifcation
+  * Joke of the Day
+  * Coffee fact of the day
+  * Daily Playlist
+* User can opt in for email notification
 
 ### 2. Screen Archetypes
 
-* [list first screen here]
-   * [list associated required story here]
-   * ...
-* [list second screen here]
-   * [list associated required story here]
-   * ...
+* Login
+  * User can login
+* Register
+  * User can register a new account
+  * User can set location for weather
+  * User can set time for daily notification
+* Stream
+  * User can see previous notifications
+* Settings
+  * User can set location for weather
+  * User can set time for daily notification
 
 ### 3. Navigation
 
 **Tab Navigation** (Tab to Screen)
 
-* [fill out your first tab]
-* [fill out your second tab]
-* [fill out your third tab]
+* Stream
+* Settings
 
 **Flow Navigation** (Screen to Screen)
 
-* [list first screen here]
-   * [list screen navigation here]
-   * ...
-* [list second screen here]
-   * [list screen navigation here]
-   * ...
-
+* Login
+   * Stream
+* Register
+   * Stream
+* Stream
+   * Settings
+* Settings
+   * Stream
+    
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
 <img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
