@@ -76,10 +76,10 @@
    * Stream
     
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
+<img src="Morningbrew_Wireframe.png" >
+
 
 ### [BONUS] Interactive Prototype
 
