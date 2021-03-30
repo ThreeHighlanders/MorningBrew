@@ -16,7 +16,7 @@ Morning Brew alerts individuals daily by informing them of the current weather f
 - **Story:** The app delivers daily notifications regarding weather for the day. The user can see past notifications, change the time they receive daily notifications, and change the weather's location.
 - **Market:** It can be marketed to anyone interested in changing or improving their lifestyle. This app also appeals to anyone who wants to know the weather every day without checking their weather app.
 - **Habit:** This app will be used every day, once a day. Because the app's purpose is to notify the user every day at a specified time, the user will interact with the app at least once a day.
-- **Scope:** In the beginning, the app's functionality is simple and alerts the user with the weather. Its usage could then be broadened to include a calendar and a to-do list. Adding a calendar and a to-do list would allow users to organize their time in one application, establishing its goal as a lifestyle app. 
+- **Scope:** In the beginning, the app's functionality is simple and alerts the user with the weather. Its usage could then be broadened to include a calendar and a to-do list. Adding a calendar and a to-do list would allow users to organize their time in one application, establishing its goal as a lifestyle app. To expand its functionality, even more, the [Optional Nice-to-have Stories](#Optional Nice-to-have Stories) can be implemented.
 
 ## Product Spec
 
