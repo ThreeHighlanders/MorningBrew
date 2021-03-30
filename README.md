@@ -78,7 +78,7 @@
 ## Wireframes
 
 ### [BONUS] Digital Wireframes & Mockups
-<img src="Morningbrew_Wireframe.png" >
+<img src="MorningBrew_Wireframe.png" >
 
 
 ### [BONUS] Interactive Prototype
