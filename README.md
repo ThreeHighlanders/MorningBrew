@@ -8,16 +8,15 @@
 
 ## Overview
 ### Description
-[Description of your app]
+Morning Brew alerts individuals daily by informing them of the current weather for a specified location at a specified time.
 
 ### App Evaluation
-[Evaluation of your app across the following attributes]
-- **Category:**
-- **Mobile:**
-- **Story:**
-- **Market:**
-- **Habit:**
-- **Scope:**
+- **Category:** Lifestyle
+- **Mobile:** This app is primarily developed for mobile. A mobile app will allow clients more convenience to use it whenever they wake up in the morning. Thus, it is more practical to develop this as a mobile app than a desktop app in order for it to suit its purpose.
+- **Story:** The app delivers daily notifications regarding weather for the day. The user can see past notifications, change the time they receive daily notifications, and change the weather's location.
+- **Market:** It can be marketed to anyone interested in changing or improving their lifestyle. This app also appeals to anyone who wants to know the weather every day without checking their weather app.
+- **Habit:** This app will be used every day, once a day. Because the app's purpose is to notify the user every day at a specified time, the user will interact with the app at least once a day.
+- **Scope:** In the beginning, the app's functionality is simple and alerts the user with the weather. Its usage could then be broadened to include a calendar and a to-do list. Adding a calendar and a to-do list would allow users to organize their time in one application, establishing its goal as a lifestyle app. 
 
 ## Product Spec
 
