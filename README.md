@@ -65,14 +65,12 @@ Morning Brew alerts individuals daily by informing them of the current weather f
 
 **Flow Navigation** (Screen to Screen)
 
-* Login
-   * Stream
-* Register
-   * Stream
-* Stream
-   * Settings
-* Settings
-   * Stream
+* Login -> Stream
+* Register -> Stream
+* Stream -> Settings
+* Settings -> Stream
+* Settings -> Login
+ 
     
 ## Wireframes
 
@@ -85,7 +83,7 @@ Morning Brew alerts individuals daily by informing them of the current weather f
 ## Schema 
 ### Models
 
-#### Notification Feed
+#### Notification Container
 
 | Property | Type | Description |
 |--- | --- | --- |
@@ -120,6 +118,18 @@ Morning Brew alerts individuals daily by informing them of the current weather f
 
 
 ### Networking
-- [Add list of network requests by screen ]
+#### List of network requests by screen
+ * Registering Screen 
+    * (Create/POST) create a new user 
+ * Stream Screen 
+    * (Read/GET) Query all notifications container object where currentUser is attached
+    * (Create/POST) Create a new notification container object at the set time 
+ * Settings Screen 
+    * (Read/Get) Querry user location 
+    * (Read/Get) Querry time of notification 
+    * (Update/PUT) Update user location 
+    * (Update/PUT) Update time of notification 
+ 
+
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
