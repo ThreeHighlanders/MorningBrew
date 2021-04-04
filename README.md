@@ -123,7 +123,24 @@ Morning Brew alerts individuals daily by informing them of the current weather f
     * (Create/POST) create a new user 
  * Stream Screen 
     * (Read/GET) Query all notifications container object where currentUser is attached
-    * (Create/POST) Create a new notification container object at the set time 
+    ```java
+     ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+     query.include(Post.KEY_USER);
+     query.setLimit(20);
+     query.addDescendingOrder(Post.KEY_CREATED_KEY);
+     query.findInBackground(new FindCallback<Post>() {
+         @Override
+         public void done(List<Post> posts, ParseException e) {
+             if (e!= null){
+                 Log.e(TAG,"Couldn't find content",e);
+                 return;
+             }
+             
+             //TODO: Do something with posts
+     });
+    ```
+       
+     * (Create/POST) Create a new notification container object at the set time 
  * Settings Screen 
     * (Read/Get) Querry user location 
     * (Read/Get) Querry time of notification 
