@@ -83,9 +83,42 @@ Morning Brew alerts individuals daily by informing them of the current weather f
 ### [BONUS] Interactive Prototype
 
 ## Schema 
-[This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+
+#### Notification Feed
+
+| Property | Type | Description |
+|--- | --- | --- |
+|objectId | String | unique Id for the post (default field) |
+|user| Pointer to User | Notification attached to User (default field|
+|createdAt| DateTime | Date and Time of Creation (default field)|
+|weatherHigh| String | High temp of the day (default field)|
+|weatherLow| String | Low temp of the day (default field)|
+|weatherDes| String | one word description of the weather (default field)|
+
+#### User
+
+| Property | Type | Description |
+|--- | --- | --- |
+|objectId | String | unique Id for the User (default field) |
+|name| String | name of the User |
+|username| String | Username of the user (default field) |
+|password| String | Password of the user (hidden field) |
+|email | Sring | email of the User (optional field) |
+|profilePic| File | Profile pic of the user|
+|createdAt|DateTime| Date and Time of Creation (default field)|
+
+#### Perms 
+
+| Property | Type | Description |
+|--- | --- | --- |
+|objectId | String | unique Id for the post (default field) |
+|user| Pointer to User | settings attached to User (default field|
+|createdAt| DateTime | Date and Time of Creation (default field)|
+|location|String|Coordinates of the User|
+|time| String| user set time for notifications|
+
+
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
