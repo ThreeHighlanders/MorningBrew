@@ -83,12 +83,12 @@ Morning Brew alerts individuals daily by informing them of the current weather f
 ## Schema 
 ### Models
 
-#### Notification Container
+#### Brew
 
 | Property | Type | Description |
 |--- | --- | --- |
-|objectId | String | unique Id for the post (default field) |
-|user| Pointer to User | Notification attached to User (default field|
+|objectId | String | unique Id for the brew (default field) |
+|user| Pointer to User | Brew attached to User (default field|
 |createdAt| DateTime | Date and Time of Creation (default field)|
 |weatherHigh| String | High temp of the day (default field)|
 |weatherLow| String | Low temp of the day (default field)|
@@ -110,7 +110,7 @@ Morning Brew alerts individuals daily by informing them of the current weather f
 
 | Property | Type | Description |
 |--- | --- | --- |
-|objectId | String | unique Id for the post (default field) |
+|objectId | String | unique Id for the Perms (default field) |
 |user| Pointer to User | settings attached to User (default field|
 |createdAt| DateTime | Date and Time of Creation (default field)|
 |location|String|Coordinates of the User|
@@ -122,25 +122,43 @@ Morning Brew alerts individuals daily by informing them of the current weather f
  * Registering Screen 
     * (Create/POST) create a new user 
  * Stream Screen 
-    * (Read/GET) Query all notifications container object where currentUser is attached
+    * (Read/GET) Query all brew object where currentUser is attached
     ```java
-     ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-     query.include(Post.KEY_USER);
+     ParseQuery<brew> query = ParseQuery.getQuery(Brew.class);
+     query.include(Brew.KEY_USER);
      query.setLimit(20);
-     query.addDescendingOrder(Post.KEY_CREATED_KEY);
-     query.findInBackground(new FindCallback<Post>() {
+     query.whereEqualTo(Brew.KEY_USER, ParseUser.getCurrentUser());
+     query.addDescendingOrder(Brew.KEY_CREATED_KEY);
+     query.findInBackground(new FindCallback<Brew>() {
          @Override
-         public void done(List<Post> posts, ParseException e) {
+         public void done(List<Brew> Brews, ParseException e) {
              if (e!= null){
                  Log.e(TAG,"Couldn't find content",e);
                  return;
              }
              
-             //TODO: Do something with posts
+             //TODO: Do something with Brews
      });
     ```
        
-     * (Create/POST) Create a new notification container object at the set time 
+     * (Create/POST) Create a new Brew object at the set time 
+     ```java
+      Brew brew= new brew();
+      brew.setWeatherHigh(weather.getHigh());
+      brew.setWeatherLow(weather.getLow());
+      brew.setWeatherDes(weather.getDes());
+      brew.setUser(currentUser);
+      brew.saveInBackground(new SaveCallback() {
+          @Override
+          public void done(ParseException e) {
+              if (e != null){
+                  Log.e(TAG, "Error saving brew in backend", e);
+                  return;
+              }
+          //TODO: Send Brew as Notification and add it to the Brews Feed
+          }
+      });
+     ```
  * Settings Screen 
     * (Read/Get) Querry user location 
     * (Read/Get) Querry time of notification 
