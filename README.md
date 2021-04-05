@@ -90,8 +90,8 @@ Morning Brew alerts individuals daily by informing them of the current weather f
 |objectId | String | unique Id for the brew (default field) |
 |user| Pointer to User | Brew attached to User (default field|
 |createdAt| DateTime | Date and Time of Creation (default field)|
-|weatherHigh| String | High temp of the day (default field)|
-|weatherLow| String | Low temp of the day (default field)|
+|weatherHigh| int | High temp of the day (default field)|
+|weatherLow| int | Low temp of the day (default field)|
 |weatherDes| String | one word description of the weather (default field)|
 
 #### User
@@ -102,7 +102,6 @@ Morning Brew alerts individuals daily by informing them of the current weather f
 |name| String | name of the User |
 |username| String | Username of the user (default field) |
 |password| String | Password of the user (hidden field) |
-|email | Sring | email of the User (optional field) |
 |profilePic| File | Profile pic of the user|
 |createdAt|DateTime| Date and Time of Creation (default field)|
 
@@ -121,6 +120,23 @@ Morning Brew alerts individuals daily by informing them of the current weather f
 #### List of network requests by screen
  * Registering Screen 
     * (Create/POST) create a new user 
+      ```java
+      User user= new User();
+      user.setName(name);
+      user.setUserName(username);
+      user.setPassword(password);
+      user.setProfilePic(profilePicFile);
+      user.saveInBackground(new SaveCallback() {
+          @Override
+          public void done(ParseException e) {
+              if (e != null){
+                  Log.e(TAG, "Error saving brew in backend", e);
+                  return;
+              }
+          //TODO: Login user and redirect to the brews screen
+          }
+      });
+     ```
  * Stream Screen 
     * (Read/GET) Query all brew object where currentUser is attached
     ```java
@@ -143,10 +159,10 @@ Morning Brew alerts individuals daily by informing them of the current weather f
        
      * (Create/POST) Create a new Brew object at the set time 
      ```java
-      Brew brew= new brew();
-      brew.setWeatherHigh(weather.getHigh());
-      brew.setWeatherLow(weather.getLow());
-      brew.setWeatherDes(weather.getDes());
+      Brew brew= new Brew();
+      brew.setWeatherHigh(high);
+      brew.setWeatherLow(low);
+      brew.setWeatherDes(des);
       brew.setUser(currentUser);
       brew.saveInBackground(new SaveCallback() {
           @Override
