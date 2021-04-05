@@ -170,15 +170,12 @@ Morning Brew alerts individuals daily by informing them of the current weather f
     * (Update/PUT) Update time of notification 
     ```java
     ParseQuery<ParseObject> query = ParseQuery.getQuery(User.class);
-    query.getInBackground("xWMyZ4YEGZ", new GetCallback<ParseObject>() {
+    query.whereEqualTo(Brew.KEY_USER, ParseUser.getCurrentUser());
+    query.getInBackground(objectId, new GetCallback<ParseObject>() {
       public void done(ParseObject gameScore, ParseException e) {
         if (e == null) {
-         //TODO: Update location and time
+            //TODO: Update location and time
         }
       }
     });
     ```
- 
-
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
