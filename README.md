@@ -103,18 +103,9 @@ Morning Brew alerts individuals daily by informing them of the current weather f
 |username| String | Username of the user (default field) |
 |password| String | Password of the user (hidden field) |
 |profilePic| File | Profile pic of the user|
-|createdAt|DateTime| Date and Time of Creation (default field)|
-
-#### Perms 
-
-| Property | Type | Description |
-|--- | --- | --- |
-|objectId | String | unique Id for the Perms (default field) |
-|user| Pointer to User | settings attached to User (default field|
-|createdAt| DateTime | Date and Time of Creation (default field)|
 |location|String|Coordinates of the User|
 |time| String| user set time for notifications|
-
+|createdAt|DateTime| Date and Time of Creation (default field)|
 
 ### Networking
 #### List of network requests by screen
@@ -136,7 +127,7 @@ Morning Brew alerts individuals daily by informing them of the current weather f
           //TODO: Login user and redirect to the brews screen
           }
       });
-     ```
+      ```
  * Stream Screen 
     * (Read/GET) Query all brew object where currentUser is attached
     ```java
@@ -156,7 +147,6 @@ Morning Brew alerts individuals daily by informing them of the current weather f
              //TODO: Do something with Brews
      });
     ```
-       
      * (Create/POST) Create a new Brew object at the set time 
      ```java
       Brew brew= new Brew();
@@ -176,10 +166,18 @@ Morning Brew alerts individuals daily by informing them of the current weather f
       });
      ```
  * Settings Screen 
-    * (Read/Get) Querry user location 
-    * (Read/Get) Querry time of notification 
-    * (Update/PUT) Update user location 
+    * (Update/PUT) Update user location
     * (Update/PUT) Update time of notification 
+    ```java
+    ParseQuery<ParseObject> query = ParseQuery.getQuery(User.class);
+    query.getInBackground("xWMyZ4YEGZ", new GetCallback<ParseObject>() {
+      public void done(ParseObject gameScore, ParseException e) {
+        if (e == null) {
+         //TODO: Update location and time
+        }
+      }
+    });
+    ```
  
 
 - [Create basic snippets for each Parse network request]
