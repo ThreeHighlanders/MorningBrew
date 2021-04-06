@@ -172,7 +172,7 @@ Morning Brew alerts individuals daily by informing them of the current weather f
     ParseQuery<ParseObject> query = ParseQuery.getQuery(User.class);
     query.whereEqualTo(Brew.KEY_USER, ParseUser.getCurrentUser());
     query.getInBackground(objectId, new GetCallback<ParseObject>() {
-      public void done(ParseObject gameScore, ParseException e) {
+      public void done(ParseObject User.class, ParseException e) {
         if (e == null) {
             //TODO: Update location and time
         }
