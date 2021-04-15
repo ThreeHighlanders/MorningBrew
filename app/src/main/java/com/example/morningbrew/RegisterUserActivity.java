@@ -55,6 +55,7 @@ public class RegisterUserActivity extends AppCompatActivity {
                     goMainActivity();
                 }
                 else {
+                    Log.e("RegisterUserActivity","error",e);
                     Toast.makeText(RegisterUserActivity.this, "Issue with registering", Toast.LENGTH_SHORT).show();
                     return;
                 }
