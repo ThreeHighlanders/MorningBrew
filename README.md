@@ -5,6 +5,7 @@
 1. [Product Spec](#Product-Spec)
 1. [Wireframes](#Wireframes)
 2. [Schema](#Schema)
+3. [Video Walkthroughs](#Video-Walkthrough)
 
 ## Overview
 ### Description
@@ -179,3 +180,12 @@ Morning Brew alerts individuals daily by informing them of the current weather f
       }
     });
     ```
+
+## Video Walkthrough
+User can register a new account:
+
+<img src='register.gif' title='User can register a new account' width='' alt='Video Walkthrough' />
+
+User can login with an existing account:
+
+<img src='login.gif' title='User can login with an existing account' width='' alt='Video Walkthrough' />
