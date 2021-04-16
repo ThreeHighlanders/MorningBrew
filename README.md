@@ -24,12 +24,12 @@ Morning Brew alerts individuals daily by informing them of the current weather f
 
 **Required Must-have Stories**
 
-* [ ]User can register a new account
+* [x]User can register a new account
 * [x]User can login
-* User can set location for weather
-* User can set time for daily notification
-* User can see previous notifications
-* User receives daily notification 
+* []User can set location for weather
+* []User can set time for daily notification
+* []User can see previous notifications
+* []User receives daily notification 
 
 **Optional Nice-to-have Stories**
 
