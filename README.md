@@ -27,8 +27,8 @@ Morning Brew alerts individuals daily by informing them of the current weather f
 
 * [x] User can register a new account
 * [x] User can login
-* [ ] User can set location for weather
-* [ ] User can set time for daily notification
+* [x] User can set location for weather
+* [x] User can set time for daily notification
 * [ ] User can see previous notifications
 * [ ] User receives daily notification 
 
@@ -183,7 +183,7 @@ Morning Brew alerts individuals daily by informing them of the current weather f
 
 ## Video Walkthrough
 ### User can Set location and time in settings activity 
-<img src='demo1.gif' title='User can Set location and time in settings activity' width='' alt='Video Walkthrough' />
+<img src='sprint3.gif' title='User can Set location and time in settings activity' width='' alt='Video Walkthrough' />
 
 ### User can register a new account:
 
