@@ -76,18 +76,19 @@ public class HomeFragment extends Fragment {
         // Specify which class to query
         ParseQuery<Brew> query = ParseQuery.getQuery(Brew.class);
         query.include(Brew.USER);
-        query.setLimit(20);
         query.addDescendingOrder(Brew.CREATE_KEY);
+        Log.i(TAG, "queryBrews");
         query.findInBackground(new FindCallback<Brew>() {
             @Override
             public void done(List<Brew> brews, ParseException e) {
                 if (e != null) {
-                    Log.e(TAG, "Issue with getting posts", e);
+                    Log.e(TAG, "Issue with getting brews", e);
                     return;
                 }
                 for (Brew brew: brews) {
                     Log.i(TAG, "Brew: " + brew.getDescription() + ", username: " + brew.getUser().getUsername());
                 }
+                Log.i(TAG, "queryBrews2");
                 allBrews.addAll(brews);
                 adapter.notifyDataSetChanged();
             }

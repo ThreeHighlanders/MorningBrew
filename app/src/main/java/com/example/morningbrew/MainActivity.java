@@ -13,12 +13,6 @@ import com.example.morningbrew.fragments.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-//    private Button settings;
-//    private DrawerLayout mDrawer;
-//    private Toolbar toolbar;
-//    private NavigationView nvDrawer;
-//
-//    private ActionBarDrawerToggle drawerToggle;
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
     private BottomNavigationView topNavigationView;
@@ -27,13 +21,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        settings= findViewById(R.id.settings);
-//        settings.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v) {
-//                goSettingsActivity();
-//            }
-//        });
 
         topNavigationView = findViewById(R.id.topNavigation);
         topNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -42,13 +29,13 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment;
                 switch (item.getItemId()) {
                     case R.id.action_home:
-                        fragment = new SettingsFragment();
+                        fragment = new HomeFragment();
                         break;
                     case R.id.action_settings:
                         fragment = new SettingsFragment();
                         break;
                     default:
-                        fragment = new SettingsFragment();
+                        fragment = new HomeFragment();
                         break;
                 }
                 fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
@@ -58,10 +45,4 @@ public class MainActivity extends AppCompatActivity {
         // Set default selection
         topNavigationView.setSelectedItemId(R.id.action_home);
     }
-
-
-//    private void goSettingsActivity() {
-//        Intent i = new Intent(this, SettingsActivity.class);
-//        this.startActivity(i);
-//    }
 }

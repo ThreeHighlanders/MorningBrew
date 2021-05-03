@@ -1,11 +1,7 @@
 package com.example.morningbrew.fragments;
 
-import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import com.example.morningbrew.MainActivity;
 import com.example.morningbrew.R;
-import com.example.morningbrew.SettingsActivity;
-
-import java.util.Calendar;
 
 public class SettingsFragment extends Fragment {
     private static final String TAG = "SettingsFragment";

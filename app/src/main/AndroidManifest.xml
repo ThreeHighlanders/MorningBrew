@@ -16,7 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MorningBrew"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SettingsActivity"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
