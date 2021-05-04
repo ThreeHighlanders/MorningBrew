@@ -11,6 +11,7 @@ public class ParseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        ParseObject.registerSubclass(Brew.class);
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("4I5sJqnKTsErJVqm6Ro9XuoebzdabXbasOFyn6Ff")
                 .clientKey("04CRc5B34ips9EVzeXrxOFjKwhzsDO2VLMYfSkpD")

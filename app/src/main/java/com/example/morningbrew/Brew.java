@@ -15,6 +15,9 @@ public class Brew extends ParseObject {
     public static final String USER = "user";
     public static final String CREATE_KEY = "createdAt";
 
+    public Brew() {
+    }
+
     public String getDescription() {
         return getString(DESCRIPTION);
     }

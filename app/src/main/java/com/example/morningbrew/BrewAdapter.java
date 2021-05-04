@@ -56,8 +56,8 @@ public class BrewAdapter extends RecyclerView.Adapter<BrewAdapter.ViewHolder> {
 
         public void bind(Brew brew) {
             tvDescription.setText(brew.getDescription());
-            tvHigh.setText(brew.getHigh());
-            tvLow.setText(brew.getLow());
+            tvHigh.setText(Integer.toString(brew.getHigh()));
+            tvLow.setText(Integer.toString(brew.getLow()));
         }
     }
 }

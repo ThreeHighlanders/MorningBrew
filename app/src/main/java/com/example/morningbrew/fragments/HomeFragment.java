@@ -18,6 +18,7 @@ import com.example.morningbrew.BrewAdapter;
 import com.example.morningbrew.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class HomeFragment extends Fragment {
         queryBrews();
     }
 
-    private void queryBrews() {
+    protected void queryBrews() {
         // Specify which class to query
         ParseQuery<Brew> query = ParseQuery.getQuery(Brew.class);
         query.include(Brew.USER);
