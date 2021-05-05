@@ -55,4 +55,7 @@ dependencies {
 
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 
+    implementation 'com.codepath.libraries:asynchttpclient:2.0.0'
+
+
 }

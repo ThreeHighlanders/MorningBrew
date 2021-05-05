@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.codepath.asynchttpclient.AsyncHttpClient;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.morningbrew.Brew;
 import com.example.morningbrew.BrewAdapter;
 import com.example.morningbrew.R;
@@ -20,16 +23,28 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Headers;
+
 public class HomeFragment extends Fragment {
     public static final String TAG = "HomeFragment";
+    public static String API_URL= "http://api.openweathermap.org/data/2.5/weather?zip=08817,us&appid=d162c47b7d6374a9a98b555ade89ad29&units=imperial";
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView rvBrews;
     protected BrewAdapter adapter;
     protected List<Brew> allBrews;
+    private int low;
+    private int high;
+    private String desc;
 
     public HomeFragment() {
         //empty constructor
@@ -66,6 +81,34 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        AsyncHttpClient client= new AsyncHttpClient();
+        client.get(API_URL, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int i, Headers headers, JSON json) {
+                Log.i(TAG,"onSuccess");
+                JSONObject jsonObject= json.jsonObject;
+                try {
+                    JSONObject main = jsonObject.getJSONObject("main");
+                    low= main.getInt("temp_min");
+                    high= main.getInt("temp_max");
+                    JSONArray weather= jsonObject.getJSONArray("weather");
+                    JSONObject jsonObject1= weather.getJSONObject(0);
+                    desc= jsonObject1.getString("description");
+                    Log.i(TAG,desc+" "+low+" "+high);
+                    ParseUser currentUser= ParseUser.getCurrentUser();
+                    //saveBrews(high,low,desc,currentUser);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int i, Headers headers, String s, Throwable throwable) {
+                Log.e(TAG,"onFailure",throwable);
+            }
+        });
+
         allBrews = new ArrayList<>();
         adapter = new BrewAdapter(getContext(), allBrews);
         rvBrews.setAdapter(adapter);
@@ -92,6 +135,26 @@ public class HomeFragment extends Fragment {
                 Log.i(TAG, "queryBrews2");
                 allBrews.addAll(brews);
                 adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    protected void saveBrews(int high,int low, String desc, ParseUser user){
+        Brew brew= new Brew();
+        brew.setHigh(high);
+        brew.setLow(low);
+        brew.setDescription(desc);
+        brew.setUser(user);
+        brew.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null){
+                    Log.e(TAG, "Error saving brew in backend", e);
+                    Toast.makeText(getContext(), "Error Posting!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Log.i(TAG,"Post was successful");
+
             }
         });
     }
