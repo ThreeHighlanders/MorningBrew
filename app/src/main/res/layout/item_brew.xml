@@ -33,4 +33,10 @@
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         tools:text="Description..." />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="?android:attr/listDivider" />
 </LinearLayout>
