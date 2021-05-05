@@ -23,6 +23,10 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,11 +34,14 @@ import okhttp3.Headers;
 
 public class HomeFragment extends Fragment {
     public static final String TAG = "HomeFragment";
-//    public static String API_URL= "api.openweathermap.org/data/2.5/weather?zip=08817,us&appid=d162c47b7d6374a9a98b555ade89ad29";
+    public static String API_URL= "http://api.openweathermap.org/data/2.5/weather?zip=08817,us&appid=d162c47b7d6374a9a98b555ade89ad29&units=imperial";
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView rvBrews;
     protected BrewAdapter adapter;
     protected List<Brew> allBrews;
+    private int low;
+    private int high;
+    private String desc;
 
     public HomeFragment() {
         //empty constructor
@@ -71,18 +78,33 @@ public class HomeFragment extends Fragment {
             }
         });
 
-//        AsyncHttpClient client= new AsyncHttpClient();
-//        client.get(API_URL, new JsonHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int i, Headers headers, JSON json) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(int i, Headers headers, String s, Throwable throwable) {
-//
-//            }
-//        });
+        AsyncHttpClient client= new AsyncHttpClient();
+        client.get(API_URL, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int i, Headers headers, JSON json) {
+                Log.i(TAG,"onSuccess");
+                JSONObject jsonObject= json.jsonObject;
+                try {
+                    JSONObject main = jsonObject.getJSONObject("main");
+                    low= main.getInt("temp_min");
+                    high= main.getInt("temp_max");
+                    JSONArray weather= jsonObject.getJSONArray("weather");
+                    JSONObject jsonObject1= weather.getJSONObject(0);
+                    desc= jsonObject1.getString("description");
+                    Log.i(TAG,desc+" "+low+" "+high+" "+main.toString());
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(int i, Headers headers, String s, Throwable throwable) {
+                Log.e(TAG,"onFailure",throwable);
+            }
+        });
 
         allBrews = new ArrayList<>();
         adapter = new BrewAdapter(getContext(), allBrews);
