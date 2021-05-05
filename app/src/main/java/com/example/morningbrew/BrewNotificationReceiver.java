@@ -10,8 +10,8 @@ public class BrewNotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
-            BrewNotification notificationHelper = new BrewNotification(context, );
-            notificationHelper.createNotification();
+            BrewNotification notificationHelper = new BrewNotification(context, "data");
+            notificationHelper.createNotification("data");
         }
     }
 }
