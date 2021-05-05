@@ -30,7 +30,7 @@ Morning Brew alerts individuals daily by informing them of the current weather f
 * [x] User can set location for weather
 * [x] User can set time for daily notification
 * [x] User can see previous notifications
-* [ ] User receives daily notification 
+* [x] User receives daily notification 
 
 **Optional Nice-to-have Stories**
 
