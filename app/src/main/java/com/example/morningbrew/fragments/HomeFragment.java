@@ -37,15 +37,10 @@ import okhttp3.Headers;
 
 public class HomeFragment extends Fragment {
     public static final String TAG = "HomeFragment";
-    public static String API_URL= "http://api.openweathermap.org/data/2.5/weather?";
-    public static final String URL_END = ",us&appid=d162c47b7d6374a9a98b555ade89ad29&units=imperial";
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView rvBrews;
     protected BrewAdapter adapter;
     protected List<Brew> allBrews;
-    private int low;
-    private int high;
-    private String desc;
 
     public HomeFragment() {
         //empty constructor
@@ -82,45 +77,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        //getting user's set zipcode
-        ParseUser currentUser= ParseUser.getCurrentUser();
-        if (currentUser != null) {
-            String zip = "zipcode="+currentUser.get("zipcode").toString();
-            API_URL.concat(zip);
-        }
-        else {//if no user, it gets set to default zipcode
-            API_URL.concat("zipcode=07103");
-            Log.e(TAG, "no current user");
-        }
-
-        AsyncHttpClient client= new AsyncHttpClient();
-        API_URL.concat(URL_END);
-        client.get(API_URL, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int i, Headers headers, JSON json) {
-                Log.i(TAG,"onSuccess");
-                JSONObject jsonObject= json.jsonObject;
-                try {
-                    JSONObject main = jsonObject.getJSONObject("main");
-                    low= main.getInt("temp_min");
-                    high= main.getInt("temp_max");
-                    JSONArray weather= jsonObject.getJSONArray("weather");
-                    JSONObject jsonObject1= weather.getJSONObject(0);
-                    desc= jsonObject1.getString("description");
-                    Log.i(TAG,desc+" "+low+" "+high);
-                    //saveBrews(high,low,desc,currentUser);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int i, Headers headers, String s, Throwable throwable) {
-                Log.e(TAG,"onFailure",throwable);
-            }
-        });
-
         allBrews = new ArrayList<>();
         adapter = new BrewAdapter(getContext(), allBrews);
         rvBrews.setAdapter(adapter);
@@ -151,23 +107,4 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    protected void saveBrews(int high,int low, String desc, ParseUser user){
-        Brew brew= new Brew();
-        brew.setHigh(high);
-        brew.setLow(low);
-        brew.setDescription(desc);
-        brew.setUser(user);
-        brew.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null){
-                    Log.e(TAG, "Error saving brew in backend", e);
-                    Toast.makeText(getContext(), "Error Posting!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Log.i(TAG,"Post was successful");
-
-            }
-        });
-    }
 }
