@@ -1,5 +1,9 @@
 package com.example.morningbrew.fragments;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,6 +22,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import com.example.morningbrew.BrewNotificationBuilder;
+import com.example.morningbrew.BrewNotificationReceiver;
 import com.example.morningbrew.LoginActivity;
 import com.example.morningbrew.MainActivity;
 import com.example.morningbrew.R;
@@ -28,17 +34,25 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.Calendar;
+import java.util.Date;
+
+import static com.parse.Parse.getApplicationContext;
 import static com.parse.ParseQuery.*;
 
 public class SettingsFragment extends Fragment {
     private static final String TAG = "SettingsFragment";
+    Context context;
     TextView showTime;
     TimePicker time;
     int hour, min;
     EditText etZipcode;
     Button btnSet;
     Button btnLogout;
-//    Calendar calendar;
+    //set alarm on btnSet
+    private AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
+    Calendar calendar;
 
     public SettingsFragment () {
         //empty constructor
@@ -70,16 +84,23 @@ public class SettingsFragment extends Fragment {
                 hour = time.getHour();
                 min = time.getMinute();
 
+                //show time in 12 hour notation
                 setTime(hour, min);
+
+                //set zip zode and time in database
                 String zipcode = etZipcode.getText().toString();
                 String set_Time= showTime.getText().toString();
                 updateUser(set_Time,zipcode);
+
+                //set alarm
+                setAlarm(hour, min);
+
             }
         });
     }
 
     private void setField(ParseUser user) {
-        String objectId= user.getObjectId();
+        String objectId = user.getObjectId();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
         query.whereEqualTo("objectId", objectId);
         query.getInBackground(objectId, new GetCallback<ParseObject>() {
@@ -98,6 +119,26 @@ public class SettingsFragment extends Fragment {
                 }
             }
         });
+    }
+
+    public void setAlarm(int hour, int min) {
+
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, min);
+        calendar.set(Calendar.SECOND, 0);
+
+        //setting alarm to the time the user set
+        alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getApplicationContext(), BrewNotificationReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        if (alarmManager != null) {
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        }
+
     }
 
     private void setTime(int hour, int min) {
