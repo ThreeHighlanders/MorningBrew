@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +23,8 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,13 +94,13 @@ public class HomeFragment extends Fragment {
                     JSONArray weather= jsonObject.getJSONArray("weather");
                     JSONObject jsonObject1= weather.getJSONObject(0);
                     desc= jsonObject1.getString("description");
-                    Log.i(TAG,desc+" "+low+" "+high+" "+main.toString());
+                    Log.i(TAG,desc+" "+low+" "+high);
+                    ParseUser currentUser= ParseUser.getCurrentUser();
+                    //saveBrews(high,low,desc,currentUser);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
             }
 
             @Override
@@ -132,6 +135,26 @@ public class HomeFragment extends Fragment {
                 Log.i(TAG, "queryBrews2");
                 allBrews.addAll(brews);
                 adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    protected void saveBrews(int high,int low, String desc, ParseUser user){
+        Brew brew= new Brew();
+        brew.setHigh(high);
+        brew.setLow(low);
+        brew.setDescription(desc);
+        brew.setUser(user);
+        brew.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null){
+                    Log.e(TAG, "Error saving brew in backend", e);
+                    Toast.makeText(getContext(), "Error Posting!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Log.i(TAG,"Post was successful");
+
             }
         });
     }
