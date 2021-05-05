@@ -37,7 +37,8 @@ import okhttp3.Headers;
 
 public class HomeFragment extends Fragment {
     public static final String TAG = "HomeFragment";
-    public static String API_URL= "http://api.openweathermap.org/data/2.5/weather?zip=08817,us&appid=d162c47b7d6374a9a98b555ade89ad29&units=imperial";
+    public static String API_URL= "http://api.openweathermap.org/data/2.5/weather?";
+    public static final String URL_END = ",us&appid=d162c47b7d6374a9a98b555ade89ad29&units=imperial";
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView rvBrews;
     protected BrewAdapter adapter;
@@ -81,7 +82,19 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //getting user's set zipcode
+        ParseUser currentUser= ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            String zip = "zipcode="+currentUser.get("zipcode").toString();
+            API_URL.concat(zip);
+        }
+        else {//if no user, it gets set to default zipcode
+            API_URL.concat("zipcode=07103");
+            Log.e(TAG, "no current user");
+        }
+
         AsyncHttpClient client= new AsyncHttpClient();
+        API_URL.concat(URL_END);
         client.get(API_URL, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int i, Headers headers, JSON json) {
@@ -95,7 +108,6 @@ public class HomeFragment extends Fragment {
                     JSONObject jsonObject1= weather.getJSONObject(0);
                     desc= jsonObject1.getString("description");
                     Log.i(TAG,desc+" "+low+" "+high);
-                    ParseUser currentUser= ParseUser.getCurrentUser();
                     //saveBrews(high,low,desc,currentUser);
 
                 } catch (JSONException e) {
