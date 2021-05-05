@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.codepath.asynchttpclient.AsyncHttpClient;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.morningbrew.Brew;
 import com.example.morningbrew.BrewAdapter;
 import com.example.morningbrew.R;
@@ -24,8 +26,11 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Headers;
+
 public class HomeFragment extends Fragment {
     public static final String TAG = "HomeFragment";
+//    public static String API_URL= "api.openweathermap.org/data/2.5/weather?zip=08817,us&appid=d162c47b7d6374a9a98b555ade89ad29";
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView rvBrews;
     protected BrewAdapter adapter;
@@ -65,6 +70,19 @@ public class HomeFragment extends Fragment {
                 swipeContainer.setRefreshing(false);
             }
         });
+
+//        AsyncHttpClient client= new AsyncHttpClient();
+//        client.get(API_URL, new JsonHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int i, Headers headers, JSON json) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(int i, Headers headers, String s, Throwable throwable) {
+//
+//            }
+//        });
 
         allBrews = new ArrayList<>();
         adapter = new BrewAdapter(getContext(), allBrews);
