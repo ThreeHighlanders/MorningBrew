@@ -10,15 +10,17 @@ import android.provider.Settings;
 
 import androidx.core.app.NotificationCompat;
 
-public class BrewNotificationBuilder {
+public class BrewNotification {
     private Context notifContext;
+    public String content;
     private static final String NOTIFICATION_CHANNEL_ID = "10001" ;
 
-    public BrewNotificationBuilder(Context notifContext) {
+    public BrewNotification(Context notifContext, String content) {
         this.notifContext = notifContext;
+        this.content = content;
     }
 
-    void createNotification() {
+    public void createNotification(String content) {
         Intent intent = new Intent(notifContext , MainActivity.class);
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -27,10 +29,11 @@ public class BrewNotificationBuilder {
 
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(notifContext, NOTIFICATION_CHANNEL_ID);
         nBuilder.setSmallIcon(R.drawable.ic_baseline_brew_24);
-        nBuilder.setContentTitle("Title")
-                .setContentText("Content")
+        nBuilder.setContentTitle("Morning Brew")
+                .setContentText(content)
                 .setAutoCancel(false)
                 .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(resultPendingIntent);
 
         NotificationManager mNotificationManager = (NotificationManager) notifContext.getSystemService(Context.NOTIFICATION_SERVICE);
