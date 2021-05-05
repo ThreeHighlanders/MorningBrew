@@ -55,7 +55,7 @@ import static com.parse.ParseQuery.*;
 public class SettingsFragment extends Fragment {
     private static final String TAG = "SettingsFragment";
     public static String API_URL= "http://api.openweathermap.org/data/2.5/weather?";
-    public static final String URL_END = ",us&appid=d162c47b7d6374a9a98b555ade89ad29&units=imperial";
+    public static String URL_END = ",us&appid=d162c47b7d6374a9a98b555ade89ad29&units=imperial";
     private int low;
     private int high;
     public String desc;
@@ -68,7 +68,7 @@ public class SettingsFragment extends Fragment {
     Button btnLogout;
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
-    Calendar calendar;
+    Calendar calendar = Calendar.getInstance();
     public String content;
 
     public SettingsFragment() {
@@ -90,7 +90,7 @@ public class SettingsFragment extends Fragment {
         btnSet = view.findViewById(R.id.btnSet);
         btnLogout = view.findViewById(R.id.btnLogout);
         ParseUser user= ParseUser.getCurrentUser();
-        setField(user);
+//        setField(user);
 //        calendar = Calendar.getInstance();
 
         btnSet.setOnClickListener(new View.OnClickListener(){
@@ -117,16 +117,17 @@ public class SettingsFragment extends Fragment {
         //getting user's set zipcode
         ParseUser currentUser= ParseUser.getCurrentUser();
         if (currentUser != null) {
-            String zip = "zipcode="+currentUser.get("zipcode").toString();
-            API_URL.concat(zip);
+            String zip = "zip="+currentUser.getString("zipcode");
+            API_URL = API_URL+""+zip;
         }
         else {//if no user, it gets set to default zipcode
-            API_URL.concat("zipcode=07103");
+            API_URL = API_URL+"zip=07103";
             Log.e(TAG, "no current user");
         }
 
         AsyncHttpClient client= new AsyncHttpClient();
-        API_URL.concat(URL_END);
+        API_URL = API_URL+""+URL_END;
+        System.out.println(API_URL);
         client.get(API_URL, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int i, Headers headers, JSON json) {
