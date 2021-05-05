@@ -18,7 +18,9 @@ public class RegisterUserActivity extends AppCompatActivity {
 
     private EditText registerEmail;
     private EditText registerPassword;
+    private EditText registerZip;
     private Button registerBtn;
+    private Button backBtn;
     public static final String TAG = "RegisterUserActivity";
 
     @Override
@@ -28,7 +30,9 @@ public class RegisterUserActivity extends AppCompatActivity {
 
         registerEmail = findViewById(R.id.regEmail);
         registerPassword = findViewById(R.id.regPassword);
+        registerZip = findViewById(R.id.regZip);
         registerBtn = findViewById(R.id.btnContinue);
+        backBtn = findViewById(R.id.btnBack);
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,16 +40,32 @@ public class RegisterUserActivity extends AppCompatActivity {
                 Log.i(TAG, "onClick continue button");
                 String email = registerEmail.getText().toString();
                 String pass = registerPassword.getText().toString();
-                registerUser(email, pass);
+                String zip = registerZip.getText().toString();
+                registerUser(email, pass, zip);
+            }
+        });
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "Onclick go back button");
+                goLoginActivity();
             }
         });
     }
 
-    private void registerUser(String email, String password) {
+    private void goLoginActivity() {
+        Intent i = new Intent(this, LoginActivity.class);
+        startActivity(i);
+        finish();
+    }
+
+    private void registerUser(String email, String password, String zip) {
         Log.i(TAG, "Attempting to register user "+ email);
         ParseUser user = new ParseUser();
         user.setUsername(email);
         user.setPassword(password);
+        user.put("zipcode", zip);
 
         user.signUpInBackground(new SignUpCallback() {
             @Override

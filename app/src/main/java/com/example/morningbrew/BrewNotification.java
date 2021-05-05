@@ -34,7 +34,7 @@ public class BrewNotification {
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(notifContext, NOTIFICATION_CHANNEL_ID);
         nBuilder.setSmallIcon(R.drawable.ic_baseline_brew_24);
         nBuilder.setContentTitle("Morning Brew")
-                .setContentText(content)
+                .setContentText("High: 57, Low: 52, overcast clouds")
                 .setAutoCancel(false)
                 .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)

@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_width="370dp"
+        android:layout_height="175dp"
         android:layout_weight="1"
         app:srcCompat="@mipmap/ic_morning_brew" />
 
@@ -19,7 +19,7 @@
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="100dp"
         android:layout_marginBottom="15dp"
         android:layout_weight="1"
         android:ems="10"
@@ -42,13 +42,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Login" />
+        android:backgroundTint="#976005"
+        android:text="Login"
+        app:cornerRadius="10dp" />
 
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Register" />
+        android:backgroundTint="#976005"
+        android:text="Register"
+        app:cornerRadius="10dp" />
 
 </LinearLayout>

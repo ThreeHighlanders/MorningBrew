@@ -9,12 +9,19 @@
     android:orientation="vertical"
     tools:context=".RegisterUserActivity">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_weight="1"
+        app:srcCompat="@mipmap/ic_morning_brew" />
+
     <EditText
         android:id="@+id/regEmail"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="5dp"
         android:layout_weight="1"
         android:ems="10"
         android:hint="email"
@@ -31,11 +38,32 @@
         android:hint="password"
         android:inputType="textPassword" />
 
+    <EditText
+        android:id="@+id/regZip"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="zipcode"
+        android:inputType="text" />
+
     <Button
         android:id="@+id/btnContinue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Continue" />
+        android:backgroundTint="#976005"
+        android:text="Continue"
+        app:cornerRadius="10dp" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="#976005"
+        android:text="Go back" />
 
 </LinearLayout>

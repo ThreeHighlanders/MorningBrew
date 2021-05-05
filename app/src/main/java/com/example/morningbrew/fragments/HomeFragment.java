@@ -98,6 +98,7 @@ public class HomeFragment extends Fragment {
                     return;
                 }
                 for (Brew brew: brews) {
+                    //query brews for only the user, not all users
                     Log.i(TAG, "Brew: " + brew.getDescription() + ", username: " + brew.getUser().getUsername());
                 }
                 Log.i(TAG, "queryBrews2");
