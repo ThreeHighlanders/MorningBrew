@@ -12,7 +12,7 @@ import androidx.core.app.NotificationCompat;
 
 public class BrewNotification {
     private Context notifContext;
-    public String content;
+    public String content = "";
     private static final String NOTIFICATION_CHANNEL_ID = "10001" ;
 
     public BrewNotification(Context notifContext, String content) {
@@ -20,7 +20,11 @@ public class BrewNotification {
         this.content = content;
     }
 
-    public void createNotification(String content) {
+    public BrewNotification (Context context) {
+        this.notifContext = context;
+    }
+
+    public void createNotification() {
         Intent intent = new Intent(notifContext , MainActivity.class);
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

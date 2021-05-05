@@ -49,6 +49,8 @@ import java.util.Date;
 
 import okhttp3.Headers;
 
+import static android.content.Context.ALARM_SERVICE;
+import static androidx.core.content.ContextCompat.getSystemService;
 import static com.parse.Parse.getApplicationContext;
 import static com.parse.ParseQuery.*;
 
@@ -59,15 +61,12 @@ public class SettingsFragment extends Fragment {
     private int low;
     private int high;
     public String desc;
-    Context context;
     TextView showTime;
     TimePicker time;
     int hour, min;
     EditText etZipcode;
     Button btnSet;
     Button btnLogout;
-    private AlarmManager alarmManager;
-    private PendingIntent pendingIntent;
     Calendar calendar = Calendar.getInstance();
     public String content;
 
@@ -101,9 +100,6 @@ public class SettingsFragment extends Fragment {
                 hour = time.getHour();
                 min = time.getMinute();
 
-                //show time in 12 hour notation
-                setTime(hour, min);
-
                 //set zip zode and time in database
                 String zipcode = etZipcode.getText().toString();
                 String set_Time= showTime.getText().toString();
@@ -111,6 +107,17 @@ public class SettingsFragment extends Fragment {
 
                 //set alarm
                 setAlarm(hour, min);
+                //show time in 12 hour notation
+                setTime(hour, min);
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ParseUser.logOut();
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                goLoginActivity();
             }
         });
 
@@ -156,6 +163,12 @@ public class SettingsFragment extends Fragment {
         });
     }
 
+    private void goLoginActivity() {
+        Intent i = new Intent(getContext(), LoginActivity.class);
+        startActivity(i);
+        getActivity().finish();
+    }
+
     private void setField(ParseUser user) {
         String objectId = user.getObjectId();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
@@ -185,26 +198,23 @@ public class SettingsFragment extends Fragment {
         calendar.set(Calendar.SECOND, 0);
 
         //setting alarm to the time the user set
-        alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getApplicationContext(), BrewNotificationReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
-
+        Intent intent = new Intent(getContext(), BrewNotificationReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
 
-        if (alarmManager != null) {
+        if (alarmManager != null && getContext() != null) {
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
             //enable boot receiver once alarm is set
-            ComponentName receiver = new ComponentName(context, BrewNotificationReceiver.class);
-            PackageManager pm = context.getPackageManager();
+            ComponentName receiver = new ComponentName(getContext(), BrewNotificationReceiver.class);
+            PackageManager pm = getContext().getPackageManager();
 
             pm.setComponentEnabledSetting(receiver,
                     PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                     PackageManager.DONT_KILL_APP);
 
-            BrewNotification brewNotification = new BrewNotification(context, content);
-            brewNotification.createNotification(content);
+            BrewNotification brewNotification = new BrewNotification(getContext(), content);
+            brewNotification.createNotification();
         }
 
     }
