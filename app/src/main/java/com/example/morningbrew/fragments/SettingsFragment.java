@@ -80,14 +80,15 @@ public class SettingsFragment extends Fragment {
 
     private void setField(ParseUser user) {
         String objectId= user.getObjectId();
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("user");
         query.whereEqualTo("objectId", objectId);
         query.getInBackground(objectId, new GetCallback<ParseObject>() {
             public void done(ParseObject user, ParseException e) {
                 if (e == null) {
                     String time = user.getString("time");
+                    Log.i(TAG,time);
                     String zipcode = user.getString("zipcode");
-                    Log.i(TAG, "hi "+ time);
+                    Log.i(TAG,zipcode);
                     Log.i(TAG, "hi "+ time);
                     showTime.setText(time);
                     etZipcode.setText(zipcode);
