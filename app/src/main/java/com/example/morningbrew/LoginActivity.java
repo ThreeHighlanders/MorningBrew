@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.parse.LogInCallback;
@@ -30,6 +31,11 @@ public class LoginActivity extends AppCompatActivity{
 //        if( ParseUser.getCurrentUser() != null) {
 //            goMainActivity();
 //        }
+
+        ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_morning_brew);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         etEmail = findViewById(R.id.email);
         etPass = findViewById(R.id.password);

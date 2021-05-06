@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,9 +29,7 @@ import com.example.morningbrew.Brew;
 import com.example.morningbrew.BrewNotification;
 import com.example.morningbrew.BrewNotificationReceiver;
 import com.example.morningbrew.LoginActivity;
-import com.example.morningbrew.MainActivity;
 import com.example.morningbrew.R;
-import com.example.morningbrew.User;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -45,14 +42,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import okhttp3.Headers;
 
-import static android.content.Context.ALARM_SERVICE;
-import static androidx.core.content.ContextCompat.getSystemService;
 import static com.parse.Parse.getApplicationContext;
-import static com.parse.ParseQuery.*;
 
 public class SettingsFragment extends Fragment {
     private static final String TAG = "SettingsFragment";
@@ -89,8 +82,9 @@ public class SettingsFragment extends Fragment {
         btnSet = view.findViewById(R.id.btnSet);
         btnLogout = view.findViewById(R.id.btnLogout);
         ParseUser user= ParseUser.getCurrentUser();
-//        setField(user);
-//        calendar = Calendar.getInstance();
+        if (user != null) {
+            setField(user);
+        }
 
         btnSet.setOnClickListener(new View.OnClickListener(){
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -169,9 +163,9 @@ public class SettingsFragment extends Fragment {
         getActivity().finish();
     }
 
-    private void setField(ParseUser user) {
+    private void setField(ParseUser user) { // queries database to retrieve zipcode and time
         String objectId = user.getObjectId();
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
         query.whereEqualTo("objectId", objectId);
         query.getInBackground(objectId, new GetCallback<ParseObject>() {
             public void done(ParseObject user, ParseException e) {

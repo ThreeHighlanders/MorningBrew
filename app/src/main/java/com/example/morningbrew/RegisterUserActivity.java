@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.parse.ParseException;
@@ -33,6 +34,11 @@ public class RegisterUserActivity extends AppCompatActivity {
         registerZip = findViewById(R.id.regZip);
         registerBtn = findViewById(R.id.btnContinue);
         backBtn = findViewById(R.id.btnBack);
+
+        ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_morning_brew);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    android:backgroundTint="#976005"
     android:orientation="vertical">
 
     <TextView
@@ -11,38 +13,53 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="0dp"
+        android:fontFamily="@font/concert_one"
         android:scrollHorizontally="false"
         android:selectAllOnFocus="false"
         android:text="Settings"
         android:textAllCaps="false"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#976005" />
+
+    <View
+        android:id="@+id/settingsDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/concert_one"
         android:text="Location"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#976005" />
 
     <EditText
         android:id="@+id/etZipcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Zipcode"
+        android:fontFamily="@font/prompt_medium"
+        android:hint="Enter zipcode"
         android:inputType="number"
         android:selectAllOnFocus="false"
         android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/concert_one"
         android:text="Time"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#976005" />
     <!--    <TextView-->
     <!--        android:layout_width="wrap_content"-->
     <!--        android:layout_height="wrap_content"-->
@@ -56,6 +73,10 @@
         android:id="@+id/timePicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:amPmBackgroundColor="#976005"
+        android:amPmTextColor="#976005"
+        android:background="#976005"
+        android:numbersTextColor="@color/white"
         android:timePickerMode="spinner" />
 
     <TextView
@@ -63,25 +84,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/timePicker"
-        android:text="Show Time"
-        android:textAllCaps="false" />
+        android:fontFamily="@font/prompt_medium"
+        android:hint="Show time here"
+        android:textAllCaps="false"
+        android:textColor="#FFEB3B"
+        android:textColorHint="@color/white" />
 
     <Button
         android:id="@+id/btnSet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:backgroundTint="#976005"
-        android:text="Enter Settings"
-        app:cornerRadius="10dp" />
+        android:text="Enter Settings" />
 
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="#976005"
         android:text="Logout"
-        app:cornerRadius="10dp" />
+        app:cornerRadius="20dp" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

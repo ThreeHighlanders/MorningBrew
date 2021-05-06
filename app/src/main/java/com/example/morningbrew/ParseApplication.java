@@ -1,6 +1,9 @@
 package com.example.morningbrew;
 
 import android.app.Application;
+
+import androidx.appcompat.app.ActionBar;
+
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -11,6 +14,7 @@ public class ParseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         ParseObject.registerSubclass(Brew.class);
         ParseObject.registerSubclass(User.class);
         Parse.initialize(new Parse.Configuration.Builder(this)

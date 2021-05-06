@@ -14,6 +14,7 @@
         android:layout_margin="8dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#FF9800"
         tools:text="high of the day" />
 
     <TextView
@@ -23,6 +24,7 @@
         android:layout_margin="8dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#FF9800"
         tools:text="low of the day" />
 
     <TextView
@@ -32,11 +34,11 @@
         android:layout_marginBottom="8dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#FF9800"
         tools:text="Description..." />
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="?android:attr/listDivider" />
+        android:layout_height="10dp" />
 </LinearLayout>
