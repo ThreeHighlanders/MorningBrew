@@ -197,6 +197,7 @@ public class SettingsFragment extends Fragment {
         AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
 
         if (alarmManager != null && getContext() != null) {
+            Log.i(TAG, "setting alarm");
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
             //enable boot receiver once alarm is set
