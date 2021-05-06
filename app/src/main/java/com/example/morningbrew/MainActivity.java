@@ -17,46 +17,22 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
-    private BottomNavigationView topNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        ActionBar actionBar = getSupportActionBar();
-//        getSupportActionBar().setTitle("Welcome to Morning Brew!");
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.mipmap.ic_morning_brew);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-
-        topNavigationView = findViewById(R.id.topNavigation);
-//        topNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                Fragment fragment;
-//                switch (item.getItemId()) {
-//                    case R.id.action_home:
-//                        fragment = new HomeFragment();
-//                        break;
-//                    case R.id.action_settings:
-//                        fragment = new SettingsFragment();
-//                        break;
-//                    default:
-//                        fragment = new HomeFragment();
-//                        break;
-//                }
-//                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
-//                return true;
-//            }
-//        });
-        // Set default selection
-        topNavigationView.setSelectedItemId(R.id.action_home);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        setContentView(R.layout.activity_main);
+
+        ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_morning_brew);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         getMenuInflater().inflate(R.menu.menu_top_navigation, menu);
         return true;
     }
@@ -76,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new HomeFragment();
                 break;
         }
-        fragmentManager.beginTransaction().replace(R.id.topNavigation, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
         return true;
     }
 }

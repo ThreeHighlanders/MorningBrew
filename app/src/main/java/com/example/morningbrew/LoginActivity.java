@@ -56,8 +56,6 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "onClick register button");
-                String email = etEmail.getText().toString();
-                String password = etPass.getText().toString();
                 goRegisterUser();
             }
         });
@@ -75,14 +73,11 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void done(ParseUser user, ParseException e) {
                 if( e != null) {
-                    //better error handling
                     Log.e(TAG, "Issue with login", e);
-                    Toast.makeText(LoginActivity.this, "Issue with login!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Log.i(TAG, "login user");
                 goMainActivity();
-                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT).show();
             }
         });
     }

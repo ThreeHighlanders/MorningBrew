@@ -98,14 +98,28 @@ public class HomeFragment extends Fragment {
                     return;
                 }
                 for (Brew brew: brews) {
-                    //query brews for only the user, not all users
-                    Log.i(TAG, "Brew: " + brew.getDescription() + ", username: " + brew.getUser().getUsername());
+                    //query brews for only the current user, not all users
+                    ParseUser user = getCurrentUser();
+                    if ( brew.getUser().getUsername().equals(user.getUsername()) ) {
+                        allBrews.add(brew);
+                        adapter.notifyDataSetChanged();
+                    }
                 }
-                Log.i(TAG, "queryBrews2");
-                allBrews.addAll(brews);
-                adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    public ParseUser getCurrentUser() {
+        // After login, Parse will cache it on disk, so
+        // we don't need to login every time we open this
+        // application
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser == null) {
+            return null;
+        }
+        else {
+            return currentUser;
+        }
     }
 
 }
