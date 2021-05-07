@@ -27,8 +27,10 @@
         </activity>
         <activity android:name=".MainActivity"/>
         <activity android:name=".RegisterUserActivity" />
-        <receiver android:name=".BrewNotificationReceiver"
-            android:enabled="false">
+        <receiver
+            android:process=":remote"
+            android:name=".BrewNotificationReceiver"
+            android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"></action>
             </intent-filter>

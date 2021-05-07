@@ -57,6 +57,12 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         rvBrews = view.findViewById(R.id.rvBrews);
+
+        allBrews = new ArrayList<>();
+        adapter = new BrewAdapter(getContext(), allBrews);
+        rvBrews.setAdapter(adapter);
+        rvBrews.setLayoutManager(new LinearLayoutManager(getContext()));
+        queryBrews();
         swipeContainer = view.findViewById(R.id.swipeContainer);
 
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -76,12 +82,6 @@ public class HomeFragment extends Fragment {
                 swipeContainer.setRefreshing(false);
             }
         });
-
-        allBrews = new ArrayList<>();
-        adapter = new BrewAdapter(getContext(), allBrews);
-        rvBrews.setAdapter(adapter);
-        rvBrews.setLayoutManager(new LinearLayoutManager(getContext()));
-        queryBrews();
     }
 
     protected void queryBrews() {

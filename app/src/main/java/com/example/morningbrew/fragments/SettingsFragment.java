@@ -108,11 +108,11 @@ public class SettingsFragment extends Fragment {
                 String zipcode = etZipcode.getText().toString();
                 String set_Time= showTime.getText().toString();
                 updateUser(set_Time,zipcode);
-
+                Log.i(TAG,"hour "+hour);
+                Log.i(TAG,"min "+min);
                 //set alarm
                 setAlarm(hour, min);
                 //show time in 12 hour notation
-                setTime(hour, min);
             }
         });
 
@@ -126,7 +126,7 @@ public class SettingsFragment extends Fragment {
 
         AsyncHttpClient client= new AsyncHttpClient();
         API_URL = API_URL+""+URL_END;
-        System.out.println(API_URL);
+        Log.i(TAG,API_URL);
         client.get(API_URL, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int i, Headers headers, JSON json) {

@@ -182,6 +182,9 @@ Morning Brew alerts individuals daily by informing them of the current weather f
     ```
 
 ## Video Walkthrough
+### Final App
+<img src='finaldemo.gif' title='Final App' width='' alt='Video Walkthrough' />
+
 ### User can Set location and time in settings activity 
 <img src='sprint3.gif' title='User can Set location and time in settings activity' width='' alt='Video Walkthrough' />
 
