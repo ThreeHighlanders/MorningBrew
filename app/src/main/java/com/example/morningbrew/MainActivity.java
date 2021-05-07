@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new SettingsFragment();
                 break;
             default:
-                fragment = new HomeFragment();
+                fragment = new SettingsFragment();
                 break;
         }
         fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
