@@ -31,6 +31,7 @@ import com.example.morningbrew.BrewNotificationReceiver;
 import com.example.morningbrew.LoginActivity;
 import com.example.morningbrew.R;
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -42,6 +43,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import okhttp3.Headers;
 
@@ -81,9 +83,17 @@ public class SettingsFragment extends Fragment {
         showTime = view.findViewById(R.id.tvShowTime);
         btnSet = view.findViewById(R.id.btnSet);
         btnLogout = view.findViewById(R.id.btnLogout);
+
         ParseUser user= ParseUser.getCurrentUser();
         if (user != null) {
             setField(user);
+            //getting user's set zipcode
+            String zip = "zip="+user.getString("zipcode");
+            API_URL = API_URL+""+zip;
+        }
+        else {//if no user, it gets set to default zipcode
+            API_URL = API_URL+"zip=07103";
+            Log.e(TAG, "no current user");
         }
 
         btnSet.setOnClickListener(new View.OnClickListener(){
@@ -110,21 +120,9 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 ParseUser.logOut();
-                ParseUser currentUser = ParseUser.getCurrentUser();
                 goLoginActivity();
             }
         });
-
-        //getting user's set zipcode
-        ParseUser currentUser= ParseUser.getCurrentUser();
-        if (currentUser != null) {
-            String zip = "zip="+currentUser.getString("zipcode");
-            API_URL = API_URL+""+zip;
-        }
-        else {//if no user, it gets set to default zipcode
-            API_URL = API_URL+"zip=07103";
-            Log.e(TAG, "no current user");
-        }
 
         AsyncHttpClient client= new AsyncHttpClient();
         API_URL = API_URL+""+URL_END;
@@ -132,7 +130,7 @@ public class SettingsFragment extends Fragment {
         client.get(API_URL, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int i, Headers headers, JSON json) {
-                Log.i(TAG,"onSuccess");
+                Log.i(TAG,"getting API URL");
                 JSONObject jsonObject= json.jsonObject;
                 try {
                     JSONObject main = jsonObject.getJSONObject("main");
@@ -143,7 +141,8 @@ public class SettingsFragment extends Fragment {
                     desc= jsonObject1.getString("description");
                     content = desc+" "+low+" "+high;
                     Log.i(TAG,desc+" "+low+" "+high);
-                    //saveBrews(high,low,desc,currentUser);
+                    // save brew if there isn't one saved already
+                    saveBrews(high,low,desc,user);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -164,16 +163,16 @@ public class SettingsFragment extends Fragment {
     }
 
     private void setField(ParseUser user) { // queries database to retrieve zipcode and time
-        String objectId = user.getObjectId();
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
-        query.whereEqualTo("objectId", objectId);
-        query.getInBackground(objectId, new GetCallback<ParseObject>() {
-            public void done(ParseObject user, ParseException e) {
+        String username = user.getUsername();
+        ParseQuery<ParseUser> query = ParseQuery.getQuery("User");
+        query.whereEqualTo("username", username);
+        query.getInBackground(user.getObjectId(), new GetCallback<ParseUser>() {
+            public void done(ParseUser user, ParseException e) {
                 if (e == null) {
                     String time = user.getString("time");
                     String zipcode = user.getString("zipcode");
                     Log.i(TAG, "hi "+ time);
-                    Log.i(TAG, "hi "+ time);
+                    Log.i(TAG, "hi "+ zipcode);
                     showTime.setText(time);
                     etZipcode.setText(zipcode);
 
